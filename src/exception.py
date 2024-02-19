@@ -12,9 +12,9 @@ def get_error_detail(error, error_detail:sys):
 
 
 class CustomError(Exception):
-    def __init__(self,error_messgae, error_detail:sys):
-        super().__init__(error_messgae)
-        self.error_message = get_error_detail(error=error_messgae, error_detail=error_detail)
+    def __init__(self,error_message, error_detail:sys):
+        super().__init__(error_message)
+        self.error_message = get_error_detail(error=error_message, error_detail=error_detail)
 
     # it is used to returns a human-readable, or informal, string representation of an object
     # prints the error_message whenever CustomError is raised i.e CustomError object is created
