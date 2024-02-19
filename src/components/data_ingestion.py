@@ -1,12 +1,13 @@
 import os
 import sys
-from src.logger import logging
-from src.exception import CustomError
-
-import pandas as pd 
 from dataclasses import dataclass
 
+import pandas as pd 
 from sklearn.model_selection import train_test_split
+
+from src.logger import logging
+from src.exception import CustomError
+from src.components.data_transformation import DataTransformer
 
 
 # gives the name of the path where the data shold be stored
@@ -55,4 +56,7 @@ class DataIngestion:
 
 if __name__ == "__main__":
     data_ingestion_obj = DataIngestion()
-    data_ingestion_obj.initiate_data_ingestion()
+    train_path, test_path = data_ingestion_obj.initiate_data_ingestion()
+
+    data_transformation_obj = DataTransformer()
+    train_arr, test_arr,_ = data_transformation_obj.get_transformed_data(train_path, test_path)
