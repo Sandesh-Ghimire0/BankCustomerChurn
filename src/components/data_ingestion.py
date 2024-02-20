@@ -8,6 +8,7 @@ from sklearn.model_selection import train_test_split
 from src.logger import logging
 from src.exception import CustomError
 from src.components.data_transformation import DataTransformer
+from src.components.model_trainer import ModelTrainer
 
 
 # gives the name of the path where the data shold be stored
@@ -60,3 +61,6 @@ if __name__ == "__main__":
 
     data_transformation_obj = DataTransformer()
     train_arr, test_arr,_ = data_transformation_obj.get_transformed_data(train_path, test_path)
+
+    model_trainer = ModelTrainer()
+    model_trainer.initiate_model_training(train_arr, test_arr)
