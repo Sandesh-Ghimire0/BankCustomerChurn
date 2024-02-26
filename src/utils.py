@@ -52,3 +52,16 @@ def evaluate_models(X_train, X_test, y_train, y_test, models):
         },inplace=True)
         
     return report_df
+
+
+def load_object(obj_path):
+    try:
+        with open(obj_path, 'rb') as file_obj:
+            obj =dill.load(file_obj)
+
+        return obj
+    
+    except Exception as e:
+        CustomError(e,sys)
+
+        
