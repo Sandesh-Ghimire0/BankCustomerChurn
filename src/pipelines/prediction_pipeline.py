@@ -82,5 +82,8 @@ class InputData:
 
             }
 
+            df = pd.DataFrame(input_dict)
+            return df
+
         except Exception as e:
             raise CustomError(e,sys)

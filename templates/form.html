@@ -8,7 +8,7 @@
   </head>
   <body>
     <div class="container">
-        <form action="">
+        <form action="/predict" method="post">
             <!-- credit_score -->
             <label class="form-label">Credit Score</label>
             <input class="form-control" type="number" name="credit_score" min="200" max="900" placeholder="Enter the credit score">
@@ -103,6 +103,13 @@
             <br>
             <input type="submit" class="btn btn-outline-primary" value="Predict">
         </form>
+
+
+        {% if result %}
+        <h1>The customer will {{result}}</h1>
+        {% endif %}
+
+
 
 
     </div>
