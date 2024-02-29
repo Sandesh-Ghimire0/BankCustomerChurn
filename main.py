@@ -1,11 +1,14 @@
 import sys
 from fastapi import FastAPI, Request
 from fastapi.templating import Jinja2Templates
+from fastapi.responses import JSONResponse
 import uvicorn
+import json
 from BankChurn import BankChurn
 
 from src.exception import CustomError
 from src.pipelines.prediction_pipeline import InputData, PredictionPipeline
+from src.pipelines.train_pipeline import TrainPipeline
 
 
 app = FastAPI()
@@ -17,6 +20,14 @@ templates = Jinja2Templates(directory='templates')
 async def home(request:Request):
     return templates.TemplateResponse('index.html',{'request':request})
 
+@app.route('/train')
+async def model_training(request:Request):
+    train_pipeline = TrainPipeline()
+    train_pipeline.train()
+    message = {"message":"Model Training Completed"}
+    message = json.dumps(message)
+    return JSONResponse(content=message)
+
 @app.route('/predict',methods=['GET','POST'])
 async def prediction(request:Request):
     try:
@@ -24,7 +35,7 @@ async def prediction(request:Request):
             return templates.TemplateResponse('form.html',{'request':request})
 
         else:
-            data = await request.form()
+            data:BankChurn = await request.form()
 
             input_data = InputData(
                 credit_score = data['credit_score'],
